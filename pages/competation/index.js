@@ -11,9 +11,17 @@ Page({
    */
   onLoad: function (options) {
     console.log(123)
+    wx.login({
+      success (res) {
+        console.log(res)
+      }
+    })
     wx.request({
-      url: '127.0.0.1/bjss/listCompetition',
+      url: 'https://www.supboogie.top/bjss/listCompetition',
       method: 'POST',
+      data: {
+
+      },
       success (res) {
         console.log(res.data)
       }
