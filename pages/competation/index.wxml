@@ -24,6 +24,7 @@
       </view>
    </view>
    <view class="foot">
+      <button bindtap="getUserProfile"> 获取头像昵称 </button>
       <view class="main">
           <view class="foot-content">
             <view>赛事</view>
