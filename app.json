@@ -1,0 +1,21 @@
+{
+  "pages":[
+    "pages/competation/index",
+    "pages/sign/index",
+    "pages/competationDetail/index",
+    "pages/index/index",
+    "pages/logs/logs"
+
+  ],
+  "useExtendedLib": {
+    "weui": true
+  },
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#0A185A",
+    "navigationBarTitleText": "不羁超级赛事",
+    "navigationBarTextStyle":"white"
+    },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

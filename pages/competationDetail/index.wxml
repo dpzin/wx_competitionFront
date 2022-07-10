@@ -1,0 +1,17 @@
+<view class="container">
+  <view class="title-card">
+    <view class="title">第八届XXXXX街舞金鹰挑战赛</view>
+    <view class="price-date">
+      <text class="price">￥60</text>
+      <text class="date">2022.05.04-05.05</text>
+    </view>
+  </view>
+  <view class="line"></view>
+  <view class="post-img">
+    <view class="img-title">赛事详情</view>
+    <image class="img" src="../images/detail.png"></image>
+  </view>
+  <view class="foot">
+    立即报名
+  </view>
+</view>
