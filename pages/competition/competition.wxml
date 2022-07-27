@@ -1,0 +1,12 @@
+<!--pages/competition/competition.wxml-->
+<view class="list">
+  <view wx:for="{{list}}" wx:key="index" class="competition" bindtap="toDetail" data-id="{{item.id}}">
+    <image mode="aspectFill" src="{{'https://www.supboogie.top' +item.coverUrl}}" class="img"></image>
+    <view class="desc">
+      <view class="title">{{item.name}}</view>
+      <view class="date">{{item.startTime}}</view>
+      <view class="price">{{'￥'+item.price}}</view>
+      <view class="address">{{item.address}}</view>
+    </view>
+  </view>
+</view>

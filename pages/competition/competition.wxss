@@ -1,0 +1,47 @@
+/* pages/competition/competition.wxss */
+page {
+  padding-bottom: 4rpx;
+}
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.competition {
+  width: 304rpx;
+  min-height: 500rpx;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 20rpx;
+  margin-bottom: 40rpx;
+}
+.img {
+  width: 304rpx;
+  height: 304rpx;
+  border-radius: 20rpx 20rpx 0 0;
+}
+.desc {
+  padding: 20rpx;
+}
+.title {
+  font-size: 32rpx;
+  color: #1B1B1B;
+  font-weight: bold;
+}
+.date {
+  color: #1B1B1B;
+  font-weight: 400;
+  font-size: 24rpx;
+}
+.price {
+  color: #0024CD;
+  font-weight: bold;
+  font-size: 28rpx;
+  margin-bottom: 10rpx;
+}
+.address {
+  color: #7E7E7E;
+  font-weight: 400;
+  font-size: 24rpx;
+}

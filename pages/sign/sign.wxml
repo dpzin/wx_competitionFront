@@ -1,0 +1,20 @@
+<!--pages/sign/sign.wxml-->
+<view class="form">
+  <view class="label">姓名/昵称/NAME</view>
+  <input type="text" bindinput="bindName" />
+  <view class="label mt56">手机号/PHONE</view>
+  <input type="number" bindinput="bindPhone"/>
+  <view class="label mt56">参赛项目</view>
+  <checkbox-group bindchange="projectChange">
+    <view wx:for="{{projectsList}}" wx:key="id" class="project">
+      <checkbox value="{{item.id}}" checked="{{item.checked}}" />
+      <text>{{item.name}}</text>
+    </view>
+  </checkbox-group>
+  <van-submit-bar
+    price="{{price}}"
+    button-text="报名"
+    bind:submit="onSubmit"
+    class="submit"
+  />
+</view>

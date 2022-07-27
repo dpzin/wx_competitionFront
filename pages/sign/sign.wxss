@@ -1,0 +1,32 @@
+/* pages/sign/sign.wxss */
+.form {
+  color: #fff;
+}
+.label {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #CDD6FF;
+}
+.mt56 {
+  margin-top: 56rpx;
+}
+input {
+  background: #394582;
+  border-radius: 34rpx;
+  height: 68rpx;
+  margin-top: 20rpx;
+  padding-left: 34rpx;
+}
+.project {
+  margin-top: 20rpx;
+}
+.submit button {
+  background: linear-gradient(180deg, #E8B72B 0%, #C43535 100%) !important;
+  border: none;
+}
+.submit .van-submit-bar__bar {
+  background: #394582;
+}
+.submit .van-submit-bar__bar text {
+  color: #CDD6FF;
+}
