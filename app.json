@@ -1,8 +1,6 @@
 {
   "pages": [
     "pages/competition/competition",
-    "pages/me/me",
-    "pages/index/index",
     "pages/competitionDetail/competitionDetail",
     "pages/sign/sign"
   ],

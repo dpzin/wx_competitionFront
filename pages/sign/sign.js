@@ -10,6 +10,7 @@ Page({
     phone: '',
     result: '',
     projectsList: [],
+    selectedProjects: [],
     price: 0,
   },
 
@@ -57,10 +58,12 @@ Page({
         price: 0,
       })
     }
+    this.setData({
+      selectedProjects: projects_id,
+    })
   },
-  onSubmit(e){
-    console.log(e)
-    const { name, phone, price} = this.data
+  async onSubmit(e){
+    const { name, phone, price, selectedProjects,query} = this.data
     if (!name) {
       return wx.showToast({
         title: '请输入姓名！',
@@ -75,7 +78,6 @@ Page({
       })
     } else if (phone) {
       const regex = "1[3-9]\\d{9}"
-      const phone = e.detail.value
       if(!(/^1[34578]\d{9}$/.test(phone))) {
         return wx.showToast({
           title: '请输入正确的手机号！',
@@ -90,24 +92,30 @@ Page({
         duration: 2000
       })
     }
-    this.getOpenId()
-    this.createOrderAndPay()
-  },
-  //获取openId
-   async getOpenId(cod) {
-    let openId = ""
-    await wx.request({
-      url: 'https://www.supboogie.top/bjss/wx/getOpenId',
-      method: 'POST',
-      data: {
-        "code":cod
-      },
-      success: (res)=> {
-        openId = res.data.data.openid
-      }
+    //获取openId
+    wx.login({
+      success: async(res) => {
+        wx.request({
+          url: 'https://www.supboogie.top/bjss/wx/getOpenId',
+          method: 'POST',
+          data: {
+            "code": res.code
+          },
+          success: (res)=> {
+            const openId = res.data.data.openid
+            let order = {
+              "openId":openId,
+              "productIds": selectedProjects, //赛事项目Id
+              "competitionId": query.id,
+              "name": name,
+              "telephone": phone
+            }
+            this.createOrderAndPay(order)
+          }
+        })
+      }
     })
-    return openId;
-  },
+  },
   //下单支付
   createOrderAndPay(order) {
     wx.request({
@@ -117,27 +125,63 @@ Page({
         "openId": order.openId,
         "productTypeEnum": "ENTRY_FEE",
         "productIds": order.productIds,
-        "competitionId": order.competitionId
+        "competitionId": order.competitionId,
+        "name": order.name,
+        "telephone": order.telephone
       },
       success: (res) => {
-        this.pay(res.data.data)
-      }
+        console.log(res)
+        if(res.statusCode == 200) {
+          this.pay(res.data.data)
+        } else {
+          wx.showToast({
+            title: res.data.message,
+            icon: 'error'
+          })
+        }
+      },
+      fail: (res) => {
+        console.log(2,res)
+        wx.showToast({
+          title: res.data.message,
+        })
+      }
     })
   },
   //支付用
   pay(data) {
     wx.requestPayment({
-    "timeStamp": data.timeStamp.toString(),
-    "nonceStr": data.nonceStr,
-    "package": "prepay_id="+data.package,
-    "signType": "RSA",
-    "paySign": data.paySign,
-    "success":function(res){
-      console.log(res)
-    },
-    "fail":function(res){
-      console.log(res)
-    }
+      "timeStamp": data.timeStamp.toString(),
+      "nonceStr": data.nonceStr,
+      "package": "prepay_id="+data.package,
+      "signType": "RSA",
+      "paySign": data.paySign,
+      "success": (res) => {
+        this.data.selectedProjects.map(item => {
+          wx.request({
+            url: 'https://www.supboogie.top/bjss/createCompetitionMember',
+            method: 'POST',
+            data: {
+              name: this.data.name,
+              role:'common',
+              competitionProjectId: item
+            },
+            success: () => {
+              wx.showModal({
+                content: `恭喜${this.data.name}报名成功`,
+                showCancel: false,
+                success: (res) => {
+                  if (res.confirm) {
+                    wx.navigateTo({
+                      url: '/pages/competition/competition',
+                    })
+                  }
+                }
+              })
+            }
+          })
+        })
+      }
     })
   },
   /**
