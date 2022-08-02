@@ -25,8 +25,10 @@ Page({
   data: {
     query: {},
     detail: {},
+    roleDetail: {},
     role:"COMMON",
-    buttonStr:"立即报名"
+    buttonStr:"立即报名",
+    competitionId:""
   },
 
   /**
@@ -49,16 +51,26 @@ Page({
       "competitionId":options.id,
       "openId":userInfo.openId
     }
+    this.competitionId = options.id
     post("https://www.supboogie.top/bjss/getRole",data).then((res)=>{
       console.log(res)
-      this.role = res.data
+      this.roleDetail = res.data.roleDetail
+      this.role = res.data.role
       this.convert()
     })
   },
   toSign() {
-    wx.navigateTo({
-      url: `/pages/sign/sign?id=${this.data.query.id}`,
-    })
+    if(this.role == "COMMON") {
+      wx.navigateTo({
+        url: `/pages/sign/sign?id=${this.data.query.id}`,
+      })
+    }
+    if(this.role ==  "MC") {
+      console.log("MC",this.competitionId)
+      wx.navigateTo({
+        url: `/pages/controller/controller?competitionId=${this.competitionId}`,
+      })
+    }
   },
   convert() {
     if(this.role == "MC") {
