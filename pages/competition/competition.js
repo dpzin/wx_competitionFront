@@ -1,4 +1,22 @@
 // pages/competition/competition.js
+import regeneratorRuntime from '../../utils/runtime.js'
+const post=(url,data)=>{
+  return new Promise((resolve,reject)=>{
+    wx.request({
+      url:url,
+      method:'POST',
+      dataType:'json',
+      data:data,
+      header:{'content-type': "application/json"},
+      success:function(res){
+          resolve(res.data)
+      },
+      fail: function() {
+          reject("请求数据失败");
+      },
+    })
+  })
+}
 Page({
 
   /**
@@ -11,11 +29,11 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad(options) {
+  async onLoad(options) {
     this.getList()
   },
-  getList(cb) {
-    wx.request({
+  async getList(cb) {
+    await wx.request({
       url: 'https://www.supboogie.top/bjss/listCompetition',
       method: 'POST',
       data: {},
@@ -29,71 +47,10 @@ Page({
       }
     })
   },
-  getUserInfo() {
-    let flag = false;
-    var userInfo = wx.getStorageSync("myUserInfo")
-    if(!userInfo) {
-      wx.getUserProfile({
-        desc: '使用小程序内的功能及服务',
-        success: (res) => {
-          flag = true;
-          console.log(res)
-          // this.setData({
-          //   userInfo: res.userInfo,
-          //   hasUserInfo: true
-          // })
-        },
-        fail: (res)=> {
-          console.log(res)
-        }
-      })
-    }
-    console.log(333)
-   return flag;
-  },
   toDetail(event) {
-    wx.clearStorage({
-      success: (res) => {},
-    })
     var userInfo = wx.getStorageSync("myUserInfo")
     if(!userInfo) {
-      wx.getUserProfile({
-        desc: '使用小程序内的功能及服务',
-        success: (res) => {
-          debugger
-          wx.setStorageSync('myUserInfo', res.userInfo)
-          console.log(res)
-          let userInfo = {
-            "nickName": res.userInfo.nickName,
-            "gender": res.userInfo.gender,
-            "avatarUrl": res.userInfo.avatarUrl,
-            "role":"common"
-          }
-          //获取openId
-          wx.login({
-            success: async(res) => {
-              wx.request({
-                url: 'https://www.supboogie.top/bjss/wx/getOpenId',
-                method: 'POST',
-                data: {
-                  "code": res.code
-                },
-                success: (res)=> {
-                  const openId = res.data.data.openid
-                  userInfo.openId = openId
-                  this.addOrUpdateWxUser(userInfo)
-                }
-              })
-            }
-          })
-          wx.navigateTo({
-            url: `/pages/competitionDetail/competitionDetail?id=${event.currentTarget.dataset.id}`,
-          })
-        },
-        fail: (res)=> {
-          console.log(res)
-        }
-      })
+      this.getUserInfo(event)
     } else {
       wx.navigateTo({
         url: `/pages/competitionDetail/competitionDetail?id=${event.currentTarget.dataset.id}`,
@@ -101,13 +58,6 @@ Page({
     }
   },
   
-  addOrUpdateWxUser(userInfo) {
-    wx.request({
-      url: 'https://www.supboogie.top/bjss/addOrUpdateWXUser',
-      method: "POST",
-      data: userInfo
-    })
-  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -157,5 +107,64 @@ Page({
    */
   onShareAppMessage() {
 
-  }
+  },
+  getOpenId() {
+    return new Promise((resolve)=>{
+      wx.login({
+        success: (res) => {
+          wx.request({
+            url: 'https://www.supboogie.top/bjss/wx/getOpenId',
+            method: 'POST',
+            data: {
+              "code": res.code
+            },
+            success: (res) => {
+              const openId = res.data.data.openid
+              resolve(openId)
+            }
+          })
+        }
+      })
+    })
+  },
+  getUserInfoProfile() {
+    return new Promise((resolve,reject)=>{
+      wx.getUserProfile({
+        desc: '使用小程序内的功能及服务',
+        success: (res) => {
+          let userInfo = {
+            "nickName": res.userInfo.nickName,
+            "gender": res.userInfo.gender,
+            "avatarUrl": res.userInfo.avatarUrl,
+            "role": "COMMON"
+          }
+          resolve(userInfo)
+        },
+        fail: (res) => {
+          reject(res)
+        }
+      })
+    })
+  },
+  async getUserInfo(event) {
+      let userInfo = wx.getStorageSync('myUserInfo')
+      if(userInfo) {
+        wx.navigateTo({
+          url: `/pages/competitionDetail/competitionDetail?id=${event.currentTarget.dataset.id}`,
+        })
+      } else {
+        let userInfo = await this.getUserInfoProfile().then((res)=>{
+          return res;
+        });
+        if(!userInfo) {
+          return
+        }
+        let openId = await this.getOpenId().then((res)=>{ return res})
+        userInfo.openId = openId
+        wx.setStorageSync('myUserInfo', userInfo)
+        wx.navigateTo({
+          url: `/pages/competitionDetail/competitionDetail?id=${event.currentTarget.dataset.id}`,
+        })
+      }
+    }
 })

@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/dpzin/wx_competitionFront#readme",
   "dependencies": {
-    "@vant/weapp": "^1.10.3"
+    "@vant/weapp": "^1.10.3",
+    "regenerator-runtime": "^0.13.9"
   }
 }

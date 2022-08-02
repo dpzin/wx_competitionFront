@@ -1,4 +1,22 @@
 // pages/competitionDetail/competitionDetail.js
+import regeneratorRuntime from '../../utils/runtime.js'
+const post=(url,data)=>{
+  return new Promise((resolve,reject)=>{
+    wx.request({
+      url:url,
+      method:'POST',
+      dataType:'json',
+      data:data,
+      header:{'content-type': "application/json"},
+      success:function(res){
+          resolve(res.data)
+      },
+      fail: function() {
+          reject("请求数据失败");
+      },
+    })
+  })
+}
 Page({
 
   /**
@@ -6,7 +24,9 @@ Page({
    */
   data: {
     query: {},
-    detail: {}
+    detail: {},
+    role:"COMMON",
+    buttonStr:"立即报名"
   },
 
   /**
@@ -24,10 +44,32 @@ Page({
         })
       }
     })
+    let userInfo = wx.getStorageSync('myUserInfo')
+    let data = {
+      "competitionId":options.id,
+      "openId":userInfo.openId
+    }
+    post("https://www.supboogie.top/bjss/getRole",data).then((res)=>{
+      console.log(res)
+      this.role = res.data
+      this.convert()
+    })
   },
   toSign() {
     wx.navigateTo({
       url: `/pages/sign/sign?id=${this.data.query.id}`,
+    })
+  },
+  convert() {
+    if(this.role == "MC") {
+      this.buttonStr = "大屏遥控"
+    } else if(this.role == "JUDGE") {
+      this.buttonStr = "海选打分"
+    } else {
+      this.buttonStr = "立即报名"
+    }
+    this.setData({
+      buttonStr: this.buttonStr
     })
   },
 
