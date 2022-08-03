@@ -161,6 +161,7 @@ Page({
         }
         let openId = await this.getOpenId().then((res)=>{ return res})
         userInfo.openId = openId
+        post("https://www.supboogie.top/bjss/addOrUpdateWXUser",userInfo)
         wx.setStorageSync('myUserInfo', userInfo)
         wx.navigateTo({
           url: `/pages/competitionDetail/competitionDetail?id=${event.currentTarget.dataset.id}`,
