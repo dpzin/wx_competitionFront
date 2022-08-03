@@ -1,0 +1,5 @@
+<view class="page-body">
+  <view class="page-section page-section-gap">
+    <web-view src="{{'https://www.supboogie.top/competition/controller?id=' + competitionId }}" ></web-view>
+  </view>
+</view>

@@ -8,7 +8,7 @@
   <view class="address"> <van-icon name="location-o" color="#FBFF97"/>{{detail.address}}</view>
   <van-divider borderColor='#CDD6FF' />
   <view class="img-title"><view class="dot"></view>赛事详情</view>
-  <image class="img" src="{{'https://www.supboogie.top' + detail.posterUrl}}" mode="widthFix"></image>
-  <van-button color="linear-gradient(180deg, #E8B72B 0%, #C43535 100%)" round custom-style="width: 544rpx; left: 50%; transform: translate(-50%, 0);" bindtap="toSign">立即报名</van-button>
+  <image class="img" src="{{'https://www.supboogie.top/' + detail.posterUrl}}" mode="widthFix"></image>
+  <van-button color="linear-gradient(180deg, #E8B72B 0%, #C43535 100%)" round custom-style="width: 544rpx; left: 50%; transform: translate(-50%, 0);" bindtap="toSign">{{buttonStr}}</van-button>
 </view>
 

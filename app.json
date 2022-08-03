@@ -2,7 +2,8 @@
   "pages": [
     "pages/competition/competition",
     "pages/competitionDetail/competitionDetail",
-    "pages/sign/sign"
+    "pages/sign/sign",
+    "pages/controller/controller"
   ],
   "useExtendedLib": {
     "weui": true
@@ -10,7 +11,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#0A185A",
-    "navigationBarTitleText": "不羁超级赛事",
+    "navigationBarTitleText": "不羁赛事",
     "navigationBarTextStyle": "white",
     "backgroundColor": "#0A185A"
   },
