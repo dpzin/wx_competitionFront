@@ -172,8 +172,8 @@ Page({
                 showCancel: false,
                 success: (res) => {
                   if (res.confirm) {
-                    wx.navigateTo({
-                      url: '/pages/competition/competition',
+                    wx.navigateBack({
+                      delta: 2
                     })
                   }
                 }
