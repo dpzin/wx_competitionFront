@@ -8,17 +8,18 @@ page {
   justify-content: space-between;
 }
 .competition {
-  width: 304rpx;
+  width: 320rpx;
   min-height: 500rpx;
   display: flex;
   flex-direction: column;
   background-color: #fff;
   border-radius: 20rpx;
   margin-bottom: 40rpx;
+  position: relative;
 }
 .img {
-  width: 304rpx;
-  height: 304rpx;
+  width: 320rpx;
+  height: 320rpx;
   border-radius: 20rpx 20rpx 0 0;
 }
 .desc {
@@ -44,4 +45,16 @@ page {
   color: #7E7E7E;
   font-weight: 400;
   font-size: 24rpx;
+}
+.tag {
+  position: absolute;
+  left: 12rpx;
+  top: 10rpx;
+  width: 80rpx;
+  height: 28rpx;
+  border-radius: 8px;
+  font-size: 16rpx;
+  font-weight: bold;
+  color: #FFFFFF;
+  text-align: center;
 }

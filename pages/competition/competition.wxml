@@ -1,6 +1,9 @@
 <!--pages/competition/competition.wxml-->
 <view class="list">
   <view wx:for="{{list}}" wx:key="index" class="competition" bindtap="toDetail" data-id="{{item.id}}">
+    <text class="tag" wx:if="{{item.status === '0'}}" style="background:#69A82D;">待开始</text>
+    <text class="tag" style="background:#808080;" wx:elif="{{item.status === '3'}}">已结束</text>
+    <text class="tag" style="background: linear-gradient(144deg, #E8B72B 0%, #C43535 100%);" wx:else>报名中</text>
     <image mode="aspectFill" src="{{'https://www.supboogie.top' +item.coverUrl}}" class="img"></image>
     <view class="desc">
       <view class="title">{{item.name}}</view>
