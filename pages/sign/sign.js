@@ -130,18 +130,16 @@ Page({
         "telephone": order.telephone
       },
       success: (res) => {
-        console.log(res)
         if(res.statusCode == 200) {
           this.pay(res.data.data)
         } else {
           wx.showToast({
-            title: res.data.message,
-            icon: 'error'
+            title: res.data.errorMessage,
+            icon: 'none'
           })
         }
       },
       fail: (res) => {
-        console.log(2,res)
         wx.showToast({
           title: res.data.message,
         })
@@ -164,7 +162,8 @@ Page({
             data: {
               name: this.data.name,
               role:'common',
-              competitionProjectId: item
+              competitionProjectId: item,
+              telephone: this.data.phone
             },
             success: () => {
               wx.showModal({

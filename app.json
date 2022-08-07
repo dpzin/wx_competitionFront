@@ -3,7 +3,8 @@
     "pages/competition/competition",
     "pages/competitionDetail/competitionDetail",
     "pages/sign/sign",
-    "pages/controller/controller"
+    "pages/controller/controller",
+    "pages/judge/judge"
   ],
   "useExtendedLib": {
     "weui": true
