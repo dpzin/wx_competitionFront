@@ -9,6 +9,16 @@
   <van-divider borderColor='#aaa' />
   <view class="img-title"><view class="dot"></view>赛事详情</view>
   <image class="img" src="{{'https://www.supboogie.top/' + detail.posterUrl}}" mode="widthFix"></image>
+  <view class="center">
+   <view class="red">联系客服</view>
+   <view class="mb20">~~~  赛事咨询  ~~~</view>
+   <image src="../../images/code.png" class="code" bindtap="previewImage"></image>
+   <view class="tip">长按识别二维码添加客服</view>
+   <view class="red">报名说明</view>
+   <view >点击下方【立即报名】按钮</view>
+   <view>填写选手信息并选择参赛项目</view>
+   <view>提交资料后微信支付即报名成功</view>
+  </view>
   <van-button color="{{ btnDisabled ? '#bbb': 'linear-gradient(180deg, #E8B72B 0%, #C43535 100%)'}}" round custom-style="width: 544rpx; position:fixed; bottom: 3%; left: 50%; transform: translate(-50%, 0);" bindtap="toSign" >{{buttonStr}}</van-button>
 </view>
 

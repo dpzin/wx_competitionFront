@@ -38,8 +38,9 @@ Page({
       method: 'POST',
       data: {},
       success: (res) => {
+        
         this.setData({
-          list: res.data.data
+          list: res.data.data.filter(item=> item.name.includes('年少'))
         })
       },
       complete: () => {

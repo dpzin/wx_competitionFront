@@ -36,3 +36,22 @@
 .img {
   margin: 20rpx 0;
 }
+.center {
+  text-align: center;
+  margin-bottom: 200rpx;
+}
+.red {
+  color: red;
+  margin: 40rpx;
+}
+.mb20 {
+  margin-bottom: 40rpx;
+}
+.tip {
+  color: #999;
+  font-size: 24rpx;
+}
+.code {
+  width: 320rpx;
+  height: 320rpx;
+}

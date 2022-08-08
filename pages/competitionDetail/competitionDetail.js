@@ -88,7 +88,12 @@ Page({
       buttonStr: this.buttonStr
     })
   },
-
+  previewImage(e) {
+    wx.previewImage({
+      urls: ['https://www.supboogie.top/image/competition/cf752640-131a-4d82-82a2-6dd6325eaa3c.png'],
+      current: e.target.dataset.src
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -138,8 +143,6 @@ Page({
 
   },
   onShareTimeline() {
-    console.log(this.data.detail.name)
-    console.log(this.competitionId)
     return {
       title:this.data.detail.name+"(参赛报名)",
       imageUrl:"../../images/nianshaoyouwei.jpg"
