@@ -136,5 +136,13 @@ Page({
    */
   onShareAppMessage() {
 
+  },
+  onShareTimeline() {
+    console.log(this.data.detail.name)
+    console.log(this.competitionId)
+    return {
+      title:this.data.detail.name+"(参赛报名)",
+      imageUrl:"../../images/nianshaoyouwei.jpg"
+    }
   }
 })
